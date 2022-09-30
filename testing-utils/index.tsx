@@ -7,13 +7,13 @@ const Wrapper: FC<PropsWithChildren> = ({ children }) => (
   <NextUIProvider>{children}</NextUIProvider>
 );
 
-const render = (ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) =>
-  nativeRender(ui, { wrapper: Wrapper, ...options });
-
-export function setup(jsx: JSX.Element) {
+export function render(
+  ui: ReactElement,
+  options?: Omit<RenderOptions, "wrapper">
+) {
   return {
     user: userEvent.setup(),
-    ...render(jsx),
+    ...nativeRender(ui, { wrapper: Wrapper, ...options }),
   };
 }
 

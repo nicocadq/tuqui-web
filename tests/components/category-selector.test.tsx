@@ -1,4 +1,4 @@
-import { setup, waitFor } from "testing-utils";
+import { render, waitFor } from "testing-utils";
 
 import { CategorySelector } from "components/category-selector";
 
@@ -6,7 +6,7 @@ describe("Category Selector", () => {
   it("displays the categories", () => {
     const fakeCategories = ["Outdoor", "Office", "Indoor", "Green"];
 
-    const { getByText } = setup(
+    const { getByText } = render(
       <CategorySelector categories={fakeCategories} />
     );
 
@@ -19,7 +19,7 @@ describe("Category Selector", () => {
     const fakeCategory = "Outdoor";
     const productName = "Spathiphyllum";
 
-    const { getByText, user } = setup(
+    const { getByText, user } = render(
       <CategorySelector categories={[fakeCategory]} />
     );
 

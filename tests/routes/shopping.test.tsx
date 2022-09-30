@@ -1,9 +1,9 @@
-import { setup, screen } from "testing-utils";
+import { render, screen } from "testing-utils";
 import { Shopping } from "routes/shopping";
 
 describe("Shopping", () => {
   it("renders the heading", () => {
-    setup(<Shopping />);
+    render(<Shopping />);
 
     screen.getByRole("heading", {
       name: /Shopping lists/i,
@@ -13,7 +13,7 @@ describe("Shopping", () => {
   it.todo("shows a search bar");
 
   it("shows the categories", () => {
-    const { getByTestId } = setup(<Shopping />);
+    const { getByTestId } = render(<Shopping />);
 
     const container = getByTestId(/categories/i);
 
