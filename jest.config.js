@@ -7,7 +7,9 @@ const helper = createConfig({
 const customConfig = {
   moduleDirectories: ["node_modules", "<rootDir>/"],
   testEnvironment: "jest-environment-jsdom",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  testRegex: "(/tests/.*|(\\.|/)(test))\\.tsx?$",
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
 };
 
 module.exports = helper(customConfig);
