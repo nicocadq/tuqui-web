@@ -1,0 +1,10 @@
+.link {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+a.link:hover,
+a.link:focus,
+a.link:active {
+  text-decoration: underline;
+}
