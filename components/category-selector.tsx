@@ -1,12 +1,10 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
+import Image from "next/image";
 import { Collapse, Text } from "@nextui-org/react";
 
-import styles from "styles/components/category-selector.module.css";
+import { Category } from "interfaces";
 
-interface Category {
-  name: string;
-  products: string[];
-}
+import styles from "styles/components/category-selector.module.css";
 
 interface CategorySelectorProps {
   categories: Category[];
@@ -23,7 +21,17 @@ export const CategorySelector: FC<CategorySelectorProps> = ({ categories }) => {
             key={name}
             title={<Title category={name} productsAmount={products.length} />}
           >
-            <Text>Spathiphyllum</Text>
+            {products.map(({ name: productName, id, imageUrl }) => (
+              <Fragment key={id}>
+                <Text>{productName}</Text>
+                <Image
+                  alt={productName}
+                  src={imageUrl}
+                  height={250}
+                  width={250}
+                />
+              </Fragment>
+            ))}
           </Collapse>
         ))}
     </Collapse.Group>

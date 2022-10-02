@@ -1,10 +1,21 @@
-export const fakeProducts = ["Spathiphyllum", "Bird of Paradise"];
+import { faker } from "@faker-js/faker";
 
-export const fakeCategories = [
-  { name: "Outdoor", products: fakeProducts },
-  { name: "Office", products: fakeProducts },
-  { name: "Indoor", products: fakeProducts },
-  { name: "Green", products: fakeProducts },
+import { Category, Product } from "interfaces";
+
+export const fakeProducts: Product[] = [
+  { id: "1", name: "Spathiphyllum", imageUrl: faker.image.imageUrl(250, 250) },
+  {
+    id: "2",
+    name: "Bird of Paradise",
+    imageUrl: faker.image.imageUrl(250, 250),
+  },
+];
+
+export const fakeCategories: Category[] = [
+  { id: "1", name: "Outdoor", products: fakeProducts },
+  { id: "2", name: "Office", products: fakeProducts },
+  { id: "3", name: "Indoor", products: fakeProducts },
+  { id: "4", name: "Green", products: fakeProducts },
 ];
 
 export const categoryNames = fakeCategories.map((c) => c.name);

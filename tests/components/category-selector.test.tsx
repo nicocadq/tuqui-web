@@ -18,8 +18,9 @@ describe("Category Selector", () => {
 
   it("shows products if the user clicks on the category", async () => {
     const fakeCategory = fakeCategories[0];
+    const { products } = fakeCategory;
 
-    const { getByText, user } = render(
+    const { getByAltText, getByText, user } = render(
       <CategorySelector categories={[fakeCategory]} />
     );
 
@@ -28,7 +29,12 @@ describe("Category Selector", () => {
     await user.click(categoryTitle);
 
     await waitFor(() => {
-      expect(getByText(fakeCategory.products[0])).toBeVisible();
+      products.forEach((p) => {
+        const image = getByAltText(p.name);
+
+        expect(image).toBeVisible();
+        expect(getByText(p.name)).toBeVisible();
+      });
     });
   });
 
@@ -45,5 +51,3 @@ describe("Category Selector", () => {
     expect(getByTestId(category.name)).toContainElement(productsAmountElement);
   });
 });
-
-export {};
