@@ -1,35 +1,48 @@
 import { render, waitFor } from "testing-utils";
+import { categoryNames, fakeCategories } from "testing-utils/mocks/shopping";
 
 import { CategorySelector } from "components/category-selector";
 
 describe("Category Selector", () => {
   it("displays the categories", () => {
-    const fakeCategories = ["Outdoor", "Office", "Indoor", "Green"];
-
     const { getByText } = render(
       <CategorySelector categories={fakeCategories} />
     );
 
-    const visibleElements = fakeCategories.map((c) => getByText(c).innerHTML);
+    const visibleCategoryNames = fakeCategories.map(
+      (c) => getByText(c.name).innerHTML
+    );
 
-    expect(visibleElements).toEqual(fakeCategories);
+    expect(visibleCategoryNames).toEqual(categoryNames);
   });
 
   it("shows products if the user clicks on the category", async () => {
-    const fakeCategory = "Outdoor";
-    const productName = "Spathiphyllum";
+    const fakeCategory = fakeCategories[0];
 
     const { getByText, user } = render(
       <CategorySelector categories={[fakeCategory]} />
     );
 
-    const categoryTitle = getByText(fakeCategory);
+    const categoryTitle = getByText(fakeCategory.name);
 
     await user.click(categoryTitle);
 
     await waitFor(() => {
-      expect(getByText(productName)).toBeVisible();
+      expect(getByText(fakeCategory.products[0])).toBeVisible();
     });
+  });
+
+  it("shows amount of products per each category", () => {
+    const category = fakeCategories[0];
+    const subtitle = `${category.products.length} products`;
+
+    const { getAllByText, getByTestId } = render(
+      <CategorySelector categories={fakeCategories} />
+    );
+
+    const productsAmountElement = getAllByText(subtitle)[0];
+
+    expect(getByTestId(category.name)).toContainElement(productsAmountElement);
   });
 });
 

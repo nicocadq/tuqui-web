@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { Text } from "@nextui-org/react";
 
+import { fakeCategories } from "testing-utils/mocks/shopping";
 import { CategorySelector } from "components/category-selector";
 
 import styles from "styles/routes/home.module.css";
@@ -19,9 +20,7 @@ export const Shopping: NextPage = () => {
         <Text h1 className={styles.title}>
           Shopping lists
         </Text>
-        <CategorySelector
-          categories={["Outdoor", "Office", "Indoor", "Green"]}
-        />
+        <CategorySelector categories={fakeCategories} />
       </main>
     </div>
   );
