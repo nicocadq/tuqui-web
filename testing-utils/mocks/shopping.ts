@@ -7,7 +7,7 @@ export const fakeProducts: Product[] = [
   {
     id: "2",
     name: "Bird of Paradise",
-    imageUrl: faker.image.imageUrl(250, 250),
+    imageUrl: faker.image.imageUrl(150, 150),
   },
 ];
 
