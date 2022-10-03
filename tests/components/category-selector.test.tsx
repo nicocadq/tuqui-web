@@ -1,19 +1,20 @@
 import { render, waitFor } from "testing-utils";
-import { categoryNames, fakeCategories } from "testing-utils/mocks/shopping";
+import { categoriesInfo, fakeCategories } from "testing-utils/mocks/shopping";
 
 import { CategorySelector } from "components/category-selector";
 
 describe("Category Selector", () => {
-  it("displays the categories", () => {
-    const { getByText } = render(
+  it("displays different colored the categories", () => {
+    const { getByText, getByTestId } = render(
       <CategorySelector categories={fakeCategories} />
     );
 
-    const visibleCategoryNames = fakeCategories.map(
-      (c) => getByText(c.name).innerHTML
-    );
+    const categoriesFromDom = fakeCategories.map((c) => ({
+      name: getByText(c.name).innerHTML,
+      color: getByTestId(c.color).getAttribute("data-testid"),
+    }));
 
-    expect(visibleCategoryNames).toEqual(categoryNames);
+    expect(categoriesFromDom).toEqual(categoriesInfo);
   });
 
   it("shows products if the user clicks on the category", async () => {

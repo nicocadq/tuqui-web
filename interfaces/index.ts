@@ -16,4 +16,5 @@ export interface Category {
   id: string;
   name: string;
   products: Product[];
+  color: string;
 }
