@@ -20,7 +20,7 @@ describe("Category Selector", () => {
     const fakeCategory = fakeCategories[0];
     const { products } = fakeCategory;
 
-    const { getByAltText, getByText, user } = render(
+    const { getByText, user } = render(
       <CategorySelector categories={[fakeCategory]} />
     );
 
@@ -30,9 +30,6 @@ describe("Category Selector", () => {
 
     await waitFor(() => {
       products.forEach((p) => {
-        const image = getByAltText(p.name);
-
-        expect(image).toBeVisible();
         expect(getByText(p.name)).toBeVisible();
       });
     });
