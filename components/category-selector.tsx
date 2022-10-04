@@ -52,7 +52,7 @@ const Title: FC<TitleProps> = ({ category, color, productsAmount }) => {
     <Grid.Container data-testid={category} gap={1.5} alignItems="center">
       <Grid
         aria-label={`Color: ${color}`}
-        data-testid={color}
+        data-testid={`${category}_${color}`}
         className={styles.color}
         style={{ backgroundColor: color }}
       />

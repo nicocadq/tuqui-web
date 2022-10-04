@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const createConfig = require("next/jest");
 
 const helper = createConfig({

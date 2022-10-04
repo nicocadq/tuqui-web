@@ -1,5 +1,6 @@
-import { FC, MouseEventHandler } from "react";
+import { FC } from "react";
 import { Card, Text, Button, Row } from "@nextui-org/react";
+import { toast } from "react-hot-toast";
 
 import styles from "styles/components/product.module.css";
 
@@ -8,16 +9,15 @@ import { HeartIcon } from "./icons/heart";
 interface ProductProps {
   imageUrl: string;
   name: string;
-  onFavoriteClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const Product: FC<ProductProps> = ({
-  imageUrl,
-  name,
-  onFavoriteClick,
-}) => {
+export const Product: FC<ProductProps> = ({ imageUrl, name }) => {
+  const handleClick = () => {
+    toast(`${name} added to favorites`);
+  };
+
   return (
-    <Card>
+    <Card className={styles.container}>
       <Card.Body css={{ p: 0 }}>
         <Card.Image
           alt={name}
@@ -32,7 +32,7 @@ export const Product: FC<ProductProps> = ({
           <Text b>{name}</Text>
           <Button
             icon={<HeartIcon fill="currentColor" filled />}
-            onClick={onFavoriteClick}
+            onPress={handleClick}
             className={styles.button}
             aria-label="Add to favorite"
           />

@@ -1,18 +1,15 @@
 import { Product } from "components/product";
-import { render } from "testing-utils";
-import { fakeProducts } from "testing-utils/mocks/shopping";
+import { render, screen, waitFor } from "testing-utils";
+import "testing-utils/mocks/matchMedia";
+import { products } from "testing-utils/mocks/shopping";
+import { USER_FEEDBACK_ROLE } from "testing-utils/variables";
 
-const fakeProduct = fakeProducts[0];
-const onFavoriteClickFn = jest.fn();
+const fakeProduct = products[0];
 
 describe("Product", () => {
   it("renders correctly", () => {
     const { getByAltText, getByRole, getByText } = render(
-      <Product
-        name={fakeProduct.name}
-        imageUrl={fakeProduct.imageUrl}
-        onFavoriteClick={onFavoriteClickFn}
-      />
+      <Product name={fakeProduct.name} imageUrl={fakeProduct.imageUrl} />
     );
 
     const image = getByAltText(fakeProduct.name);
@@ -25,5 +22,25 @@ describe("Product", () => {
     });
 
     expect(markAsFavoriteButton).toBeVisible();
+  });
+
+  describe("behaves correctly after favorite click", () => {
+    // it.todo("makes network request");
+
+    it("shows a toast ", async () => {
+      const { getByRole, user } = render(
+        <Product name={fakeProduct.name} imageUrl={fakeProduct.imageUrl} />
+      );
+
+      const markAsFavoriteButton = getByRole("button", {
+        name: /favorite/i,
+      });
+
+      await user.click(markAsFavoriteButton);
+
+      await waitFor(() => {
+        expect(screen.getByRole(USER_FEEDBACK_ROLE)).toBeDefined();
+      });
+    });
   });
 });

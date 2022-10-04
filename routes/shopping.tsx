@@ -1,13 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { Container, Text } from "@nextui-org/react";
+import { Container, Loading, Text } from "@nextui-org/react";
 
-import { fakeCategories } from "testing-utils/mocks/shopping";
 import { CategorySelector } from "components/category-selector";
+import { useCategories } from "hooks/use-shopping";
+import { USER_FEEDBACK_ROLE } from "testing-utils/variables";
 
 import styles from "styles/routes/home.module.css";
 
 export const Shopping: NextPage = () => {
+  const { data: categories, isLoading } = useCategories();
+
   return (
     <>
       <Head>
@@ -21,7 +24,12 @@ export const Shopping: NextPage = () => {
           <Text h1 className={styles.title}>
             Shopping lists
           </Text>
-          <CategorySelector categories={fakeCategories} />
+          {isLoading && (
+            <Loading role="alert" data-testid={USER_FEEDBACK_ROLE}>
+              Loading
+            </Loading>
+          )}
+          {!!categories?.length && <CategorySelector categories={categories} />}
         </Container>
       </main>
     </>

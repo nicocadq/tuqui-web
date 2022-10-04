@@ -1,24 +1,26 @@
 import { render, waitFor } from "testing-utils";
-import { categoriesInfo, fakeCategories } from "testing-utils/mocks/shopping";
+import { categoriesInfo, categories } from "testing-utils/mocks/shopping";
 
 import { CategorySelector } from "components/category-selector";
 
 describe("Category Selector", () => {
   it("displays different colored the categories", () => {
     const { getByText, getByTestId } = render(
-      <CategorySelector categories={fakeCategories} />
+      <CategorySelector categories={categories} />
     );
 
-    const categoriesFromDom = fakeCategories.map((c) => ({
+    const categoriesFromDom = categories.map((c) => ({
       name: getByText(c.name).innerHTML,
-      color: getByTestId(c.color).getAttribute("data-testid"),
+      color: getByTestId(`${c.name}_${c.color}`)
+        .getAttribute("data-testid")
+        ?.split("_")[1],
     }));
 
     expect(categoriesFromDom).toEqual(categoriesInfo);
   });
 
   it("shows products if the user clicks on the category", async () => {
-    const fakeCategory = fakeCategories[0];
+    const fakeCategory = categories[0];
     const { products } = fakeCategory;
 
     const { getByText, user } = render(
@@ -37,11 +39,11 @@ describe("Category Selector", () => {
   });
 
   it("shows amount of products per each category", () => {
-    const category = fakeCategories[0];
+    const category = categories[0];
     const subtitle = `${category.products.length} products`;
 
     const { getAllByText, getByTestId } = render(
-      <CategorySelector categories={fakeCategories} />
+      <CategorySelector categories={categories} />
     );
 
     const productsAmountElement = getAllByText(subtitle)[0];
